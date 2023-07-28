@@ -6,10 +6,11 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,scss,html}\"",
+        "lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,html}\"",
+        "lint:css": "npx stylelint \"src/**/*.{tsx,ts}\"",
         "lint:type": "npx tsc --noEmit",
         "lint:js": "npx eslint \"src/**/*.{ts,tsx}\"",
-        "lint:all": "npm run lint:prettify && npm run lint:type && npm run lint:js",
+        "lint:all": "npm run lint:prettify && npm run lint:css && npm run lint:type && npm run lint:js",
         "preview": "vite preview",
         "prettify": "prettier --write \"**/*.{ts,tsx,json,md,scss,html,js,cjs}\""
     },
