@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "category": "Task",
+        "name": "Important thing",
+        "date": "2023-07-26",
+        "content": "Chilling",
+        "createdAt": "2023-06-26T00:00:00.000Z",
+        "updatedAt": "2023-06-26T00:00:00.000Z",
+        "isArchived": false
+    },
+    {
+        "id": 2,
+        "category": "Random Thought",
+        "name": "Night thought",
+        "date": "2023-07-27",
+        "content": "Why rollers are called rollers?",
+        "createdAt": "2023-06-26T00:00:00.000Z",
+        "updatedAt": "2022-05-05T00:00:00.000Z",
+        "isArchived": false
+    },
+    {
+        "id": 5,
+        "category": "Idea",
+        "name": "Business idea",
+        "date": "2023-07-26",
+        "content": "Build ice cream shop",
+        "createdAt": "2021-04-03T00:00:00.000Z",
+        "updatedAt": "2022-05-25T00:00:00.000Z",
+        "isArchived": true
+    },
+    {
+        "id": 6,
+        "category": "Task",
+        "name": "Earn 1 billion dollars",
+        "date": "2023-07-26",
+        "content": "Impossible, but dreams bigger",
+        "createdAt": "2021-05-05T00:00:00.000Z",
+        "updatedAt": "2022-12-12T00:00:00.000Z",
+        "isArchived": true
+    }
+]
