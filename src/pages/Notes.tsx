@@ -1,9 +1,10 @@
 import React from 'react'
 
-import data from '../assets/data/data.json'
 import { Table } from '../components/common/table/Table.tsx'
+import { useNoteStore } from '../store/store.ts'
 
 const Notes: React.FC = () => {
+    const data = useNoteStore((state) => state.notes)
     const archivedNotes = data.filter((item) => item.isArchived)
     const activeNotes = data.filter((item) => !item.isArchived)
 
