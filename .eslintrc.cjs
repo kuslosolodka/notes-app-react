@@ -39,6 +39,19 @@ module.exports = {
                 sourceType: 'script',
             },
         },
+        {
+            files: ['vite-env.d.ts'],
+            rules: {
+                'unicorn/prevent-abbreviations': 'off',
+                '@typescript-eslint/triple-slash-reference': 'off',
+            },
+        },
+        {
+            files: ['main.tsx'],
+            rules: {
+                '@typescript-eslint/no-non-null-assertion': 'off',
+            },
+        },
     ],
     parserOptions: {
         ecmaVersion: 'latest',
@@ -97,5 +110,6 @@ module.exports = {
         'typescript-sort-keys/interface': 'error',
         'typescript-sort-keys/string-enum': 'error',
         'react-refresh/only-export-components': 'warn',
+        'unicorn/filename-case': 'off',
     },
 }
