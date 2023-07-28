@@ -1,8 +1,13 @@
-/* eslint-disable unicorn/filename-case */
 import React from 'react'
 
+import { Notes } from './pages/Notes.tsx'
+
 const App: React.FC = () => {
-    return <p>Hello world</p>
+    return (
+        <>
+            <Notes />
+        </>
+    )
 }
 
 export { App }
