@@ -32,6 +32,20 @@ const ButtonWrapper = styled.button<Properties>`
                     content: ' 🦄';
                 }
             `,
+            submit: css`
+                &::after {
+                    content: 'Submit';
+                }
+
+                background: green;
+            `,
+            cancel: css`
+                &::after {
+                    content: 'Cancel';
+                }
+
+                background: red;
+            `,
         }
         return variantStyles[variant]
     }}
