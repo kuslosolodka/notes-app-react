@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { styled } from 'styled-components'
 
+import { useNoteStore } from '../../../store/store.ts'
 import { NoteList } from '../../notes-list/NotesList.tsx'
 import { SummaryList } from '../../summary-list/SummaryList.tsx'
+import { Button } from '../button/Button.tsx'
+import type { FormData } from '../form/Form.tsx'
+import { Form } from '../form/Form.tsx'
+import { Modal } from '../modal/Modal.tsx'
 
 interface NoteData {
     category: string
@@ -14,21 +19,59 @@ interface NoteData {
     name: string
     updatedAt: string
 }
-
-type SummaryData = Record<string, number>
+interface SummaryData {
+    categories: Array<{
+        active: number
+        archived: number
+        category: string
+    }>
+}
 
 interface Properties {
     caption: string
     data: NoteData[] | SummaryData
+    isAdding?: boolean
     isSummary?: boolean
 }
 
-const Table: React.FC<Properties> = ({ caption, data, isSummary }) => {
+const Table: React.FC<Properties> = ({
+    caption,
+    data,
+    isSummary,
+    isAdding,
+}) => {
     const isNotesData = Array.isArray(data)
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const openModal = useCallback(() => {
+        setIsModalOpen(true)
+    }, [])
+
+    const closeModal = useCallback(() => {
+        setIsModalOpen(false)
+    }, [])
+
+    const addNote = useNoteStore((state) => state.addNote)
+
+    const handleSubmit = useCallback(
+        (formData: FormData) => {
+            addNote(formData)
+            closeModal()
+        },
+        [addNote, closeModal]
+    )
 
     return (
         <TableWrapper>
-            <TableCaption>{caption}</TableCaption>
+            {isAdding ?? false ? (
+                <TableCaption>
+                    {caption}
+                    <Button type="button" variant="add" onClick={openModal} />
+                </TableCaption>
+            ) : (
+                <TableCaption>{caption}</TableCaption>
+            )}
             <thead>
                 <TableRow>
                     {isNotesData && (
@@ -39,12 +82,14 @@ const Table: React.FC<Properties> = ({ caption, data, isSummary }) => {
                             <TableHeader>Content</TableHeader>
                             <TableHeader>Created At</TableHeader>
                             <TableHeader>Updated At</TableHeader>
+                            <TableHeader>Actions</TableHeader>
                         </>
                     )}
                     {(isSummary ?? false) && (
                         <>
-                            <TableHeader>Count</TableHeader>
                             <TableHeader>Category</TableHeader>
+                            <TableHeader>Active</TableHeader>
+                            <TableHeader>Archived</TableHeader>
                         </>
                     )}
                 </TableRow>
@@ -55,6 +100,9 @@ const Table: React.FC<Properties> = ({ caption, data, isSummary }) => {
                     <SummaryList data={data as SummaryData} />
                 )}
             </tbody>
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <Form onSubmit={handleSubmit} />
+            </Modal>
         </TableWrapper>
     )
 }
