@@ -2,12 +2,14 @@ import React from 'react'
 
 import { ButtonWrapper } from '../button/components/button-wrapper/ButtonWrapper.tsx'
 
+type ButtonVariant = 'edit' | 'delete' | 'add' | 'archive' | 'submit' | 'cancel'
+
 interface Properties {
     className?: string
     onClick?: () => void
     text?: string
     type: 'button' | 'submit'
-    variant: 'edit' | 'delete' | 'add' | 'archive'
+    variant: ButtonVariant
 }
 
 const Button: React.FC<Properties> = ({
