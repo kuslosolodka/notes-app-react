@@ -114,11 +114,19 @@ const TableWrapper = styled.table`
     padding: 0;
     width: 100%;
     table-layout: fixed;
+
+    @media (width <= 600px) {
+        border: 0;
+    }
 `
 
 const TableCaption = styled.caption`
     font-size: 1.5em;
     margin: 0.5em 0 0.75em;
+
+    @media (width <= 600px) {
+        font-size: 1.3em;
+    }
 `
 
 const TableHeader = styled.th`
@@ -127,6 +135,17 @@ const TableHeader = styled.th`
     text-transform: uppercase;
     padding: 0.625em;
     text-align: center;
+
+    @media (width <= 600px) {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
 `
 
 const TableRow = styled.tr`
