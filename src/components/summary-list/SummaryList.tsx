@@ -1,7 +1,13 @@
 import React from 'react'
 import { styled } from 'styled-components'
 
-type SummaryData = Record<string, number>
+interface SummaryData {
+    categories: Array<{
+        active: number
+        archived: number
+        category: string
+    }>
+}
 
 interface Properties {
     data: SummaryData
@@ -10,10 +16,11 @@ interface Properties {
 const SummaryList: React.FC<Properties> = ({ data }) => {
     return (
         <>
-            {Object.entries(data).map(([category, count]) => (
-                <TableRow key={category}>
-                    <TableCell>{category}</TableCell>
-                    <TableCell>{count}</TableCell>
+            {data.categories.map((categoryData) => (
+                <TableRow key={categoryData.category}>
+                    <TableCell>{categoryData.category}</TableCell>
+                    <TableCell>{categoryData.active}</TableCell>
+                    <TableCell>{categoryData.archived}</TableCell>
                 </TableRow>
             ))}
         </>
@@ -33,3 +40,4 @@ const TableCell = styled.td`
 `
 
 export { SummaryList }
+export type { SummaryData }
