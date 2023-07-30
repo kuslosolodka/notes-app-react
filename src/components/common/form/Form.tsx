@@ -1,7 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import React, { useCallback, useEffect } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { styled } from 'styled-components'
 
 import type { NoteData } from '../../../types/NoteData.ts'
+import { NoteAddValidationSchema } from '../../../types/validation-schemas/note-add.validation-schema.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
 import { Button } from '../button/Button.tsx'
 import { Input } from '../input/Input.tsx'
@@ -13,88 +16,122 @@ interface Properties {
 }
 
 const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
-    const [noteData, setFormData] = useState<NoteData>({
-        category: 'Task',
-        content: '',
-        createdAt: formatDate(new Date().toISOString()),
-        date: '',
-        id: Date.now(),
-        isArchived: false,
-        name: '',
-        updatedAt: formatDate(new Date().toISOString()),
+    const {
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm<NoteData>({
+        defaultValues: {
+            category: 'Task',
+            content: '',
+            createdAt: formatDate(new Date().toISOString()),
+            date: '',
+            id: Date.now(),
+            isArchived: false,
+            name: '',
+            updatedAt: formatDate(new Date().toISOString()),
+        },
+        resolver: zodResolver(NoteAddValidationSchema),
     })
 
     useEffect(() => {
-        // eslint-disable-next-line unicorn/no-null
-        if (initialValues != null) {
-            setFormData(initialValues)
+        if (initialValues !== null) {
+            control._reset(initialValues)
         }
-    }, [initialValues])
+    }, [control, initialValues])
 
-    const handleChange = useCallback(
-        (
-            event_: React.ChangeEvent<
-                HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-            >
-        ) => {
-            const { name, value } = event_.target
-            setFormData((previousFormData) => ({
-                ...previousFormData,
-                [name]: value,
-            }))
+    const handleFormSubmit = useCallback(
+        (event_: React.BaseSyntheticEvent): void => {
+            void handleSubmit((formData: NoteData) => {
+                onSubmit(formData)
+            })(event_)
         },
-        []
-    )
-
-    const handleSubmit = useCallback(
-        (event_: React.FormEvent) => {
-            event_.preventDefault()
-            onSubmit(noteData)
-        },
-        [noteData, onSubmit]
+        [handleSubmit, onSubmit]
     )
 
     return (
-        <FormWrapper onSubmit={handleSubmit}>
-            <Input
-                label="Name"
-                type="text"
-                id="name"
+        <FormWrapper onSubmit={handleFormSubmit} noValidate>
+            <Controller
                 name="name"
-                value={noteData.name}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                    <>
+                        <Input
+                            label="Name"
+                            type="text"
+                            id="name"
+                            {...field}
+                            required
+                        />
+                        {errors.name !== undefined && (
+                            <ErrorMessage>{errors.name.message}</ErrorMessage>
+                        )}
+                    </>
+                )}
             />
+
             <Label htmlFor="category">Category:</Label>
-            <Select
-                id="category"
+            <Controller
                 name="category"
-                value={noteData.category}
-                onChange={handleChange}
-                required
-            >
-                <option value="Random Thought">Random Thought</option>
-                <option value="Idea">Idea</option>
-                <option value="Task">Task</option>
-            </Select>
-            <Input
-                label="Date"
-                type="date"
-                id="date"
+                control={control}
+                render={({ field }) => (
+                    <>
+                        <Select id="category" {...field}>
+                            <option value="Random Thought">
+                                Random Thought
+                            </option>
+                            <option value="Idea">Idea</option>
+                            <option value="Task">Task</option>
+                        </Select>
+                        {errors.category !== undefined && (
+                            <ErrorMessage>
+                                {errors.category.message}
+                            </ErrorMessage>
+                        )}
+                    </>
+                )}
+            />
+
+            <Controller
                 name="date"
-                value={noteData.date}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                    <>
+                        <Input
+                            label="Date"
+                            type="date"
+                            id="date"
+                            {...field}
+                            required
+                        />
+                        {errors.date !== undefined && (
+                            <ErrorMessage>{errors.date.message}</ErrorMessage>
+                        )}
+                    </>
+                )}
             />
-            <Input
-                label="Content"
-                id="content"
+
+            <Controller
                 name="content"
-                onChange={handleChange}
-                rows={4}
-                value={noteData.content}
-                required
+                control={control}
+                render={({ field }) => (
+                    <>
+                        <Input
+                            label="Content"
+                            id="content"
+                            rows={4}
+                            {...field}
+                            required
+                        />
+                        {errors.content !== undefined && (
+                            <ErrorMessage>
+                                {errors.content.message}
+                            </ErrorMessage>
+                        )}
+                    </>
+                )}
             />
+
             <Wrapper>
                 <Button type="submit" variant="submit" text="Submit" />
             </Wrapper>
@@ -118,6 +155,10 @@ const Select = styled.select`
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+`
+
+const ErrorMessage = styled.span`
+    color: rgb(255 0 0);
 `
 
 export { Form }
