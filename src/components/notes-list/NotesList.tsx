@@ -6,6 +6,7 @@ import { Button } from '../common/button/Button.tsx'
 import type { FormData } from '../common/form/Form.tsx'
 import { Form } from '../common/form/Form.tsx'
 import { Modal } from '../common/modal/Modal.tsx'
+import { TableRow } from '../common/table-row/TableRow.tsx'
 import { formatDate } from '../helpers/format-date/format-date.helper.ts'
 import { Note } from '../note/Note.tsx'
 
@@ -113,12 +114,6 @@ const NoteList: React.FC<Properties> = ({ data }) => {
         </>
     )
 }
-
-const TableRow = styled.tr`
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 0.35em;
-`
 
 const Wrapper = styled.div`
     display: flex;

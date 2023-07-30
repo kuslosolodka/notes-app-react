@@ -4,6 +4,7 @@ import { styled } from 'styled-components'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
 import { Button } from '../button/Button.tsx'
 import { Input } from '../input/Input.tsx'
+import { Label } from '../Label/Label.tsx'
 
 interface FormData {
     category: string
@@ -74,8 +75,8 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 onChange={handleChange}
                 required
             />
-            <LabelWrapper htmlFor="category">Category:</LabelWrapper>
-            <SelectWrapper
+            <Label htmlFor="category">Category:</Label>
+            <Select
                 id="category"
                 name="category"
                 value={formData.category}
@@ -85,7 +86,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 <option value="Random Thought">Random Thought</option>
                 <option value="Idea">Idea</option>
                 <option value="Task">Task</option>
-            </SelectWrapper>
+            </Select>
             <Input
                 label="Date"
                 type="date"
@@ -116,17 +117,12 @@ const FormWrapper = styled.form`
     gap: 10px;
 `
 
-const LabelWrapper = styled.label`
-    display: block;
-    font-weight: bold;
-`
-
 const Wrapper = styled.div`
     display: flex;
     justify-content: center;
 `
 
-const SelectWrapper = styled.select`
+const Select = styled.select`
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;

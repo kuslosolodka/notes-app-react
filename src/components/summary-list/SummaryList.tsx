@@ -1,5 +1,7 @@
 import React from 'react'
-import { styled } from 'styled-components'
+
+import { TableCell } from '../common/table-cell/TableCell.tsx'
+import { TableRow } from '../common/table-row/TableRow.tsx'
 
 interface SummaryData {
     categories: Array<{
@@ -26,18 +28,6 @@ const SummaryList: React.FC<Properties> = ({ data }) => {
         </>
     )
 }
-
-const TableRow = styled.tr`
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 0.35em;
-`
-
-const TableCell = styled.td`
-    padding: 0.625em;
-    text-align: center;
-    font-weight: 300;
-`
 
 export { SummaryList }
 export type { SummaryData }

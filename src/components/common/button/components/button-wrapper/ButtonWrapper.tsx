@@ -26,7 +26,9 @@ const ButtonWrapper = styled.button<Properties>`
                 }
             `,
             add: css`
-                margin-left: 15px;
+                margin-left: 10px;
+                background: transparent;
+                font-size: 20px;
             `,
             submit: css`
                 background: rgb(42 170 138);

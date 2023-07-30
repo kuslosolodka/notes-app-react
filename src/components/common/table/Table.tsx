@@ -8,6 +8,7 @@ import { Button } from '../button/Button.tsx'
 import type { FormData } from '../form/Form.tsx'
 import { Form } from '../form/Form.tsx'
 import { Modal } from '../modal/Modal.tsx'
+import { TableRow } from '../table-row/TableRow.tsx'
 
 interface NoteData {
     category: string
@@ -151,12 +152,6 @@ const TableHeader = styled.th`
         position: absolute;
         width: 1px;
     }
-`
-
-const TableRow = styled.tr`
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 0.35em;
 `
 
 export { Table }
