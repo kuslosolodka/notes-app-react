@@ -1,17 +1,8 @@
+import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
 
 import data from '../assets/data/data.json'
-
-interface NoteData {
-    category: string
-    content: string
-    createdAt: string
-    date: string
-    id: number
-    isArchived: boolean
-    name: string
-    updatedAt: string
-}
+import type { NoteData } from '../types/types.ts'
 
 interface NoteState {
     addNote: (note: NoteData) => void
@@ -48,5 +39,7 @@ const useNoteStore = create<NoteState>((set) => ({
         }))
     },
 }))
+
+mountStoreDevtool('Store', useNoteStore)
 
 export { useNoteStore }

@@ -1,5 +1,4 @@
-import type { NoteData } from '../../../components/notes-list/NotesList.tsx'
-import type { SummaryData } from '../../../components/summary-list/SummaryList.tsx'
+import type { NoteData, SummaryData } from '../../../types/types.ts'
 
 const calculateSummaryData = (notes: NoteData[]): SummaryData['categories'] => {
     const summaryMap = new Map<

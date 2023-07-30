@@ -2,31 +2,13 @@ import React, { useCallback, useState } from 'react'
 import { styled } from 'styled-components'
 
 import { useNoteStore } from '../../../store/store.ts'
+import type { NoteData, SummaryData } from '../../../types/types.ts'
 import { NoteList } from '../../notes-list/NotesList.tsx'
 import { SummaryList } from '../../summary-list/SummaryList.tsx'
 import { Button } from '../button/Button.tsx'
-import type { FormData } from '../form/Form.tsx'
 import { Form } from '../form/Form.tsx'
 import { Modal } from '../modal/Modal.tsx'
 import { TableRow } from '../table-row/TableRow.tsx'
-
-interface NoteData {
-    category: string
-    content: string
-    createdAt: string
-    date: string
-    id: number
-    isArchived: boolean
-    name: string
-    updatedAt: string
-}
-interface SummaryData {
-    categories: Array<{
-        active: number
-        archived: number
-        category: string
-    }>
-}
 
 interface Properties {
     caption: string
@@ -56,8 +38,8 @@ const Table: React.FC<Properties> = ({
     const addNote = useNoteStore((state) => state.addNote)
 
     const handleSubmit = useCallback(
-        (formData: FormData) => {
-            addNote(formData)
+        (noteData: NoteData) => {
+            addNote(noteData)
             closeModal()
         },
         [addNote, closeModal]
