@@ -67,7 +67,12 @@ const Table: React.FC<Properties> = ({
             {isAdding ?? false ? (
                 <TableCaption>
                     {caption}
-                    <Button type="button" variant="add" onClick={openModal} />
+                    <Button
+                        type="button"
+                        variant="add"
+                        onClick={openModal}
+                        text="+"
+                    />
                 </TableCaption>
             ) : (
                 <TableCaption>{caption}</TableCaption>
