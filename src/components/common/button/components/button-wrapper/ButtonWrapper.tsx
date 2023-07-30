@@ -7,8 +7,6 @@ const ButtonWrapper = styled.button<Properties>`
     cursor: pointer;
     border: none;
     border-radius: 4px;
-    margin-left: 25px;
-    margin-top: 5px;
 
     ${({ variant }): ReturnType<typeof css> => {
         const variantStyles = {
@@ -28,23 +26,18 @@ const ButtonWrapper = styled.button<Properties>`
                 }
             `,
             add: css`
-                &::after {
-                    content: ' 🦄';
-                }
+                margin-left: 15px;
             `,
             submit: css`
-                &::after {
-                    content: 'Submit';
-                }
-
-                background: green;
+                background: rgb(42 170 138);
+                margin: 10px 0;
+                width: 40%;
             `,
             cancel: css`
                 &::after {
-                    content: 'Cancel';
+                    content: '❌';
+                    font-size: 20px;
                 }
-
-                background: red;
             `,
         }
         return variantStyles[variant]

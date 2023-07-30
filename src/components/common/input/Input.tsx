@@ -77,7 +77,6 @@ const InputWrapper = styled.input`
 
 const LabelWrapper = styled.label`
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
 `
 

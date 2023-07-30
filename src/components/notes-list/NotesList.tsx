@@ -82,27 +82,29 @@ const NoteList: React.FC<Properties> = ({ data }) => {
                     <Note data={item.content} />
                     <Note data={formatDate(item.createdAt)} />
                     <Note data={formatDate(item.updatedAt)} />
-                    <Button
-                        type="button"
-                        variant="edit"
-                        onClick={() => {
-                            openModal(item)
-                        }}
-                    />
-                    <Button
-                        type="button"
-                        variant="delete"
-                        onClick={() => {
-                            handleDelete(item.id)
-                        }}
-                    />
-                    <Button
-                        type="button"
-                        variant="archive"
-                        onClick={() => {
-                            handleArchiving(item.id)
-                        }}
-                    />
+                    <Wrapper>
+                        <Button
+                            type="button"
+                            variant="edit"
+                            onClick={() => {
+                                openModal(item)
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            variant="delete"
+                            onClick={() => {
+                                handleDelete(item.id)
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            variant="archive"
+                            onClick={() => {
+                                handleArchiving(item.id)
+                            }}
+                        />
+                    </Wrapper>
                 </TableRow>
             ))}
             <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -116,6 +118,11 @@ const TableRow = styled.tr`
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: 0.35em;
+`
+
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-evenly;
 `
 
 export { NoteList }

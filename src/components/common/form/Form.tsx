@@ -65,6 +65,15 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
 
     return (
         <FormWrapper onSubmit={handleSubmit}>
+            <Input
+                label="Name"
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+            />
             <LabelWrapper htmlFor="category">Category:</LabelWrapper>
             <SelectWrapper
                 id="category"
@@ -77,13 +86,12 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 <option value="Idea">Idea</option>
                 <option value="Task">Task</option>
             </SelectWrapper>
-
             <Input
-                label="Name"
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
+                label="Date"
+                type="date"
+                id="date"
+                name="date"
+                value={formData.date}
                 onChange={handleChange}
                 required
             />
@@ -96,33 +104,26 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 value={formData.content}
                 required
             />
-            <Input
-                label="Date"
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-            />
-            <Button type="button" variant="cancel" />
-            <Button type="submit" variant="submit" />
+            <Wrapper>
+                <Button type="submit" variant="submit" text="Submit" />
+            </Wrapper>
         </FormWrapper>
     )
 }
 
 const FormWrapper = styled.form`
-    &::after {
-        content: '';
-        display: table;
-        clear: both;
-    }
+    display: grid;
+    gap: 10px;
 `
 
 const LabelWrapper = styled.label`
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+`
+
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
 `
 
 const SelectWrapper = styled.select`
