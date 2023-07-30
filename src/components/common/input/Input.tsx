@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from 'styled-components'
 
-import { Label } from '../Label/Label.tsx'
+import { Label } from '../label/Label.tsx'
 
 interface Properties {
     id: string

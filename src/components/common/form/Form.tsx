@@ -1,29 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 
+import type { NoteData } from '../../../types/NoteData.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
 import { Button } from '../button/Button.tsx'
 import { Input } from '../input/Input.tsx'
-import { Label } from '../Label/Label.tsx'
-
-interface FormData {
-    category: string
-    content: string
-    createdAt: string
-    date: string
-    id: number
-    isArchived: boolean
-    name: string
-    updatedAt: string
-}
+import { Label } from '../label/Label.tsx'
 
 interface Properties {
-    initialValues?: FormData | null
-    onSubmit: (formData: FormData) => void
+    initialValues?: NoteData | null
+    onSubmit: (noteData: NoteData) => void
 }
 
 const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
-    const [formData, setFormData] = useState<FormData>({
+    const [noteData, setFormData] = useState<NoteData>({
         category: 'Task',
         content: '',
         createdAt: formatDate(new Date().toISOString()),
@@ -59,9 +49,9 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
     const handleSubmit = useCallback(
         (event_: React.FormEvent) => {
             event_.preventDefault()
-            onSubmit(formData)
+            onSubmit(noteData)
         },
-        [formData, onSubmit]
+        [noteData, onSubmit]
     )
 
     return (
@@ -71,7 +61,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
+                value={noteData.name}
                 onChange={handleChange}
                 required
             />
@@ -79,7 +69,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
             <Select
                 id="category"
                 name="category"
-                value={formData.category}
+                value={noteData.category}
                 onChange={handleChange}
                 required
             >
@@ -92,7 +82,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 type="date"
                 id="date"
                 name="date"
-                value={formData.date}
+                value={noteData.date}
                 onChange={handleChange}
                 required
             />
@@ -102,7 +92,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 name="content"
                 onChange={handleChange}
                 rows={4}
-                value={formData.content}
+                value={noteData.content}
                 required
             />
             <Wrapper>
@@ -131,4 +121,3 @@ const Select = styled.select`
 `
 
 export { Form }
-export type { FormData }

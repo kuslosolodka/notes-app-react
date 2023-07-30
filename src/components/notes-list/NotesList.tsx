@@ -2,24 +2,13 @@ import React, { useCallback, useState } from 'react'
 import { styled } from 'styled-components'
 
 import { useNoteStore } from '../../store/store.ts'
+import type { NoteData } from '../../types/NoteData.ts'
 import { Button } from '../common/button/Button.tsx'
-import type { FormData } from '../common/form/Form.tsx'
 import { Form } from '../common/form/Form.tsx'
 import { Modal } from '../common/modal/Modal.tsx'
 import { TableRow } from '../common/table-row/TableRow.tsx'
 import { formatDate } from '../helpers/format-date/format-date.helper.ts'
 import { Note } from '../note/Note.tsx'
-
-interface NoteData {
-    category: string
-    content: string
-    createdAt: string
-    date: string
-    id: number
-    isArchived: boolean
-    name: string
-    updatedAt: string
-}
 
 interface Properties {
     data: NoteData[]
@@ -59,11 +48,11 @@ const NoteList: React.FC<Properties> = ({ data }) => {
     }, [])
 
     const handleSubmit = useCallback(
-        (formData: FormData) => {
+        (noteData: NoteData) => {
             if (selectedNote !== null) {
                 const updatedNote: NoteData = {
                     ...selectedNote,
-                    ...formData,
+                    ...noteData,
                     updatedAt: formatDate(new Date().toISOString()),
                 }
                 updateNote(updatedNote)
@@ -121,4 +110,3 @@ const Wrapper = styled.div`
 `
 
 export { NoteList }
-export type { NoteData }
