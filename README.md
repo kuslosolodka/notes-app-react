@@ -2,7 +2,7 @@
 
 App for managing your notes
 
-### 💛 Frontend
+### ❤️ Frontend
 
 - [React](https://react.dev/) - The Frontend library based on Javascript
 - [Typescript](https://www.typescriptlang.org/) - JavaScript with syntax for types
@@ -42,3 +42,9 @@ App for managing your notes
   - 💣 [lint-staged](https://github.com/okonet/lint-staged) - Linting git staged filed
 - Code formatting:
   - 🎀 [Prettier](https://prettier.io/) - Code formatting
+
+## Commits
+
+- Rules:
+  - 🎛️ [Conventional Commits](https://www.conventionalcommits.org/uk/v1.0.0/) - specification for writing commits
+
