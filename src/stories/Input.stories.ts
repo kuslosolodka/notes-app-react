@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Input } from '../../components/common/input/Input'
+import { Input } from '../components/common/input/Input'
 
 const meta = {
     component: Input,
-    tags: ['autodocs'],
 } satisfies Meta<typeof Input>
 
 export default meta

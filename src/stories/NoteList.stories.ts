@@ -5,7 +5,6 @@ import { NoteList } from '../components/notes-list/NotesList'
 
 const meta = {
     component: NoteList,
-    tags: ['autodocs'],
 } satisfies Meta<typeof NoteList>
 
 export default meta
