@@ -47,9 +47,3 @@ App for managing your notes
 
 -   Rules:
     -   🎛️ [Conventional Commits](https://www.conventionalcommits.org/uk/v1.0.0/) - specification for writing commits
-
-## Storybook
-
-| Build                     | Production          |
-| ------------------------- | ------------------- |
-| `npm run build-storybook` | `npm run storybook` |
