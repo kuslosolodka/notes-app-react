@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Note } from '../components/note/Note'
-import { renderedNotesData } from './common/renderedNotesData'
+import { Note } from '../../components/note/Note'
+import { renderedNotesData } from '../common/renderedNotesData'
 
 const meta = {
     component: Note,

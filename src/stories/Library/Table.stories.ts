@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import noteData from '../assets/data/data.json'
-import { Table } from '../components/common/table/Table'
-import { mockSummaryData } from './common/mockSummaryData'
+import noteData from '../../assets/data/data.json'
+import { Table } from '../../components/common/table/Table'
+import { mockSummaryData } from '../common/mockSummaryData'
 
 const meta = {
     component: Table,

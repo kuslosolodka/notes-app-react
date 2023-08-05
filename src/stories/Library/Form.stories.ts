@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Form } from '../components/common/form/Form'
-import { mockNotesData } from './common/mockNotesData'
+import { Form } from '../../components/common/form/Form'
+import { mockNotesData } from '../common/mockNotesData'
 
 const meta = {
     component: Form,
