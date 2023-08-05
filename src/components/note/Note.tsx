@@ -1,13 +1,11 @@
 import React from 'react'
 
-import { TableCell } from '../common/table-cell/TableCell.tsx'
-
 interface Properties {
     data: string
 }
 
 const Note: React.FC<Properties> = ({ data }) => {
-    return <TableCell>{data}</TableCell>
+    return <td className="p-2.5 text-center font-light">{data}</td>
 }
 
 export { Note }

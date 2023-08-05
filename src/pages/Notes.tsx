@@ -1,5 +1,4 @@
 import React from 'react'
-import { styled } from 'styled-components'
 
 import { Table } from '../components/common/table/Table.tsx'
 import { useNoteStore } from '../store/store.ts'
@@ -16,18 +15,13 @@ const Notes: React.FC = () => {
 
     return (
         <>
-            <Wrapper>
+            <div className="grid gap-2.5">
                 <Table caption="Active Notes" data={activeNotes} isAdding />
                 <Table caption="Archived Notes" data={archivedNotes} />
                 <Table caption="Summary" data={summaryData} isSummary />
-            </Wrapper>
+            </div>
         </>
     )
 }
-
-const Wrapper = styled.div`
-    display: grid;
-    gap: 15px;
-`
 
 export { Notes }

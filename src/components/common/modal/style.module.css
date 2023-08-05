@@ -1,0 +1,5 @@
+.dialog {
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

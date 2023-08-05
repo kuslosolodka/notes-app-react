@@ -1,7 +1,4 @@
 import React from 'react'
-import { styled } from 'styled-components'
-
-import { Label } from '../label/Label.tsx'
 
 interface Properties {
     id: string
@@ -33,8 +30,10 @@ const Input: React.FC<Properties> = ({
         <>
             {hasRows ? (
                 <>
-                    <Label htmlFor={id}>{label}:</Label>
-                    <TextAreaWrapper
+                    <label htmlFor={id} className="block font-bold">
+                        {label}:
+                    </label>
+                    <textarea
                         id={id}
                         placeholder={placeholder}
                         rows={rows}
@@ -42,39 +41,27 @@ const Input: React.FC<Properties> = ({
                         onChange={onChange}
                         value={value}
                         required={required}
-                    ></TextAreaWrapper>
+                        className="w-full p-2 mb-2.5 border border-gray-300 rounded-md"
+                    ></textarea>
                 </>
             ) : (
                 <>
-                    <Label htmlFor={id}>{label}:</Label>
-                    <InputWrapper
+                    <label htmlFor={id} className="block font-bold">
+                        {label}:
+                    </label>
+                    <input
                         type={type}
                         id={id}
                         name={name}
                         value={value}
                         onChange={onChange}
                         required={required}
+                        className="w-full p-2 mb-2.5 border border-gray-300 rounded-md"
                     />
                 </>
             )}
         </>
     )
 }
-
-const TextAreaWrapper = styled.textarea`
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`
-
-const InputWrapper = styled.input`
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`
 
 export { Input }

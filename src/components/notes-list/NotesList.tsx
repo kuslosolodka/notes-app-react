@@ -1,12 +1,10 @@
 import React, { useCallback, useState } from 'react'
-import { styled } from 'styled-components'
 
 import { useNoteStore } from '../../store/store.ts'
 import type { NoteData } from '../../types/NoteData.ts'
 import { Button } from '../common/button/Button.tsx'
 import { Form } from '../common/form/Form.tsx'
 import { Modal } from '../common/modal/Modal.tsx'
-import { TableRow } from '../common/table-row/TableRow.tsx'
 import { formatDate } from '../helpers/format-date/format-date.helper.ts'
 import { Note } from '../note/Note.tsx'
 
@@ -65,14 +63,14 @@ const NoteList: React.FC<Properties> = ({ data }) => {
     return (
         <>
             {data.map((item) => (
-                <TableRow key={item.id}>
+                <tr className="bg-white border-x-gray-400 py-1" key={item.id}>
                     <Note data={item.name} />
                     <Note data={item.category} />
                     <Note data={item.date} />
                     <Note data={item.content} />
                     <Note data={formatDate(item.createdAt)} />
                     <Note data={formatDate(item.updatedAt)} />
-                    <Wrapper>
+                    <div className="grid grid-cols-3 gap-4">
                         <Button
                             type="button"
                             variant="edit"
@@ -94,8 +92,8 @@ const NoteList: React.FC<Properties> = ({ data }) => {
                                 handleArchiving(item.id)
                             }}
                         />
-                    </Wrapper>
-                </TableRow>
+                    </div>
+                </tr>
             ))}
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <Form onSubmit={handleSubmit} initialValues={selectedNote} />
@@ -103,10 +101,5 @@ const NoteList: React.FC<Properties> = ({ data }) => {
         </>
     )
 }
-
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-`
 
 export { NoteList }

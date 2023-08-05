@@ -21,7 +21,6 @@ module.exports = {
         'plugin:sonarjs/recommended',
         'plugin:import/recommended',
         'plugin:import/typescript',
-        'plugin:storybook/recommended',
         'plugin:jsx-a11y/strict',
         'plugin:react-hooks/recommended',
         'prettier',
@@ -32,6 +31,8 @@ module.exports = {
         'prettier.config.mjs',
         'commitlint.config.cjs',
         'lint-staged.config.mjs',
+        'postcss.config.js',
+        'tailwind.config.js',
     ],
     overrides: [
         {

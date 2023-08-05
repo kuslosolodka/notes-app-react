@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { TableCell } from '../common/table-cell/TableCell.tsx'
-import { TableRow } from '../common/table-row/TableRow.tsx'
+// import styles from './style.module.css'
 
 interface SummaryData {
     categories: Array<{
@@ -19,11 +18,20 @@ const SummaryList: React.FC<Properties> = ({ data }) => {
     return (
         <>
             {data.categories.map((categoryData) => (
-                <TableRow key={categoryData.category}>
-                    <TableCell>{categoryData.category}</TableCell>
-                    <TableCell>{categoryData.active}</TableCell>
-                    <TableCell>{categoryData.archived}</TableCell>
-                </TableRow>
+                <tr
+                    className="bg-white border-x-gray-400 py-1"
+                    key={categoryData.category}
+                >
+                    <td className="p-2.5 text-center font-light">
+                        {categoryData.category}
+                    </td>
+                    <td className="p-2.5 text-center font-light">
+                        {categoryData.active}
+                    </td>
+                    <td className="p-2.5 text-center font-light">
+                        {categoryData.archived}
+                    </td>
+                </tr>
             ))}
         </>
     )

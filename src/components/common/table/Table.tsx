@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react'
-import { styled } from 'styled-components'
 
 import { useNoteStore } from '../../../store/store.ts'
 import type { NoteData, SummaryData } from '../../../types/types.ts'
@@ -8,7 +7,6 @@ import { SummaryList } from '../../summary-list/SummaryList.tsx'
 import { Button } from '../button/Button.tsx'
 import { Form } from '../form/Form.tsx'
 import { Modal } from '../modal/Modal.tsx'
-import { TableRow } from '../table-row/TableRow.tsx'
 
 interface Properties {
     caption: string
@@ -46,9 +44,9 @@ const Table: React.FC<Properties> = ({
     )
 
     return (
-        <TableWrapper>
+        <table className="border border-solid border-gray-300 border-collapse m-0 p-0 w-full table-fixed">
             {isAdding ?? false ? (
-                <TableCaption>
+                <caption className="text-2xl my-2 py-3 ">
                     {caption}
                     <Button
                         type="button"
@@ -56,31 +54,51 @@ const Table: React.FC<Properties> = ({
                         onClick={openModal}
                         text="+"
                     />
-                </TableCaption>
+                </caption>
             ) : (
-                <TableCaption>{caption}</TableCaption>
+                <caption className="text-2xl my-2 py-3">{caption}</caption>
             )}
             <thead>
-                <TableRow>
+                <tr className="bg-gray-200 border border-gray-300 p-1.5">
                     {isNotesData && (
                         <>
-                            <TableHeader>Name</TableHeader>
-                            <TableHeader>Category</TableHeader>
-                            <TableHeader>Date</TableHeader>
-                            <TableHeader>Content</TableHeader>
-                            <TableHeader>Created At</TableHeader>
-                            <TableHeader>Updated At</TableHeader>
-                            <TableHeader>Actions</TableHeader>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Name
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Category
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Date
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Content
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Created At
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Updated At
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Actions
+                            </th>
                         </>
                     )}
                     {(isSummary ?? false) && (
                         <>
-                            <TableHeader>Category</TableHeader>
-                            <TableHeader>Active</TableHeader>
-                            <TableHeader>Archived</TableHeader>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Category
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Active
+                            </th>
+                            <th className="text-sm tracking-widest uppercase text-center p-2.5">
+                                Archived
+                            </th>
                         </>
                     )}
-                </TableRow>
+                </tr>
             </thead>
             <tbody>
                 {isNotesData && <NoteList data={data} />}
@@ -91,49 +109,8 @@ const Table: React.FC<Properties> = ({
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <Form onSubmit={handleSubmit} />
             </Modal>
-        </TableWrapper>
+        </table>
     )
 }
-
-const TableWrapper = styled.table`
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-
-    @media (width <= 600px) {
-        border: 0;
-    }
-`
-
-const TableCaption = styled.caption`
-    font-size: 1.5em;
-    margin: 0.5em 0 0.75em;
-
-    @media (width <= 600px) {
-        font-size: 1.3em;
-    }
-`
-
-const TableHeader = styled.th`
-    font-size: 0.85em;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.625em;
-    text-align: center;
-
-    @media (width <= 600px) {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-`
 
 export { Table }
