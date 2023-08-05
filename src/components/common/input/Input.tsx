@@ -14,18 +14,25 @@ interface Properties {
     value?: string
 }
 
-const Input: React.FC<Properties> = ({
-    label,
-    type = 'text',
-    id,
-    name,
-    value,
-    onChange,
-    required,
-    rows,
-    placeholder,
-}) => {
+const Input: React.ForwardRefRenderFunction<
+    HTMLInputElement | HTMLTextAreaElement,
+    Properties
+> = (
+    {
+        label,
+        type = 'text',
+        id,
+        name,
+        value,
+        onChange,
+        required,
+        rows,
+        placeholder,
+    },
+    reference
+) => {
     const hasRows = rows !== undefined
+
     return (
         <>
             {hasRows ? (
@@ -34,6 +41,7 @@ const Input: React.FC<Properties> = ({
                         {label}:
                     </label>
                     <textarea
+                        ref={reference as React.Ref<HTMLTextAreaElement>}
                         id={id}
                         placeholder={placeholder}
                         rows={rows}
@@ -50,6 +58,7 @@ const Input: React.FC<Properties> = ({
                         {label}:
                     </label>
                     <input
+                        ref={reference as React.Ref<HTMLInputElement>}
                         type={type}
                         id={id}
                         name={name}
@@ -64,4 +73,6 @@ const Input: React.FC<Properties> = ({
     )
 }
 
-export { Input }
+const ForwardedInput = React.forwardRef(Input)
+
+export { ForwardedInput as Input }

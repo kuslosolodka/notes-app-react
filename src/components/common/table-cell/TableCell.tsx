@@ -1,11 +1,11 @@
 import React from 'react'
 
 interface Properties {
-    data: string
+    data: string | number
 }
 
-const Note: React.FC<Properties> = ({ data }) => {
+const TableCell: React.FC<Properties> = ({ data }) => {
     return <td className="p-2.5 text-center font-light">{data}</td>
 }
 
-export { Note }
+export { TableCell }

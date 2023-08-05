@@ -2,11 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-import type { NoteData } from '../../../types/NoteData.ts'
+import type { NoteData } from '../../../types/types.ts'
 import { NoteAddValidationSchema } from '../../../types/validation-schemas/note-add.validation-schema.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
-import { Button } from '../button/Button.tsx'
-import { Input } from '../input/Input.tsx'
+import { Button, Input } from '../common.ts'
 
 interface Properties {
     initialValues?: NoteData | null

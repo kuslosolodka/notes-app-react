@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
-import { Button } from '../button/Button.tsx'
+import { Button } from '../common'
 
 interface Properties {
     children: React.ReactNode
@@ -45,7 +45,7 @@ const Modal: React.FC<Properties> = ({
     return createPortal(
         <dialog
             ref={reference}
-            className="w-96 p-4 bg-gray-100 rounded-lg shadow-md backdrop:bg-black/50"
+            className="w-96 p-4 bg-gray-100 rounded-lg shadow-md backdrop:bg-black/50 webkit-scrollbar:w-0"
         >
             <div className="flex flex-col">
                 <div className="flex justify-end">
