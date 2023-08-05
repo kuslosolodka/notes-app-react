@@ -1,3 +1,4 @@
+import remarkGfm from 'remark-gfm'
 import type { StorybookConfig } from '@storybook/react-vite'
 
 const config: StorybookConfig = {
@@ -11,13 +12,20 @@ const config: StorybookConfig = {
             name: '@storybook/addon-styling',
             options: {},
         },
+        {
+            name: '@storybook/addon-docs',
+            options: {
+                mdxPluginOptions: {
+                    mdxCompileOptions: {
+                        remarkPlugins: [remarkGfm],
+                    },
+                },
+            },
+        },
     ],
     framework: {
         name: '@storybook/react-vite',
         options: {},
-    },
-    docs: {
-        autodocs: 'tag',
     },
 }
 export default config

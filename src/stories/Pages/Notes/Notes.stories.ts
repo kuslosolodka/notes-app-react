@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Notes } from '../../pages/Notes'
+import { Notes } from '../../../pages/Notes'
 
 const meta = {
     component: Notes,

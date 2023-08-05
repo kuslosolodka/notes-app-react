@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { SummaryList } from '../../components/summary-list/SummaryList'
-import { mockSummaryData } from '../common/mockSummaryData'
+import { SummaryList } from '../../../components/summary-list/SummaryList'
+import { mockSummaryData } from '../../common/mockSummaryData'
 
 const meta = {
     component: SummaryList,
