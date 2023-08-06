@@ -3,7 +3,10 @@ import React, { useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import type { NoteData } from '../../../types/types.ts'
-import { NoteAddValidationSchema } from '../../../types/validation-schemas/note-add.validation-schema.ts'
+import {
+    NoteAddValidationSchema,
+    NoteUpdateValidationSchema,
+} from '../../../types/validation-schemas/validation-schemas.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
 import { Button, Input, Label } from '../common.ts'
 
@@ -13,6 +16,12 @@ interface Properties {
 }
 
 const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
+    const isUpdating = initialValues !== null
+
+    const validationSchema = isUpdating
+        ? NoteUpdateValidationSchema
+        : NoteAddValidationSchema
+
     const {
         handleSubmit,
         control,
@@ -28,14 +37,14 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
             name: '',
             updatedAt: formatDate(new Date().toISOString()),
         },
-        resolver: zodResolver(NoteAddValidationSchema),
+        resolver: zodResolver(validationSchema),
     })
 
     useEffect(() => {
-        if (initialValues !== null) {
+        if (isUpdating) {
             control._reset(initialValues)
         }
-    }, [control, initialValues])
+    }, [control, initialValues, isUpdating])
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
