@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import type { NoteData } from '../../../types/types.ts'
 import { NoteAddValidationSchema } from '../../../types/validation-schemas/note-add.validation-schema.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
-import { Button, Input } from '../common.ts'
+import { Button, Input, Label } from '../common.ts'
 
 interface Properties {
     initialValues?: NoteData | null
@@ -69,9 +69,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                 )}
             />
 
-            <label htmlFor="category" className="block font-bold">
-                Category:
-            </label>
+            <Label label="Category"></Label>
             <Controller
                 name="category"
                 control={control}

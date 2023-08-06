@@ -1,6 +1,7 @@
 export { Button } from './button/Button'
 export { Form } from './form/Form'
 export { Input } from './input/Input'
+export { Label } from './label/Label'
 export { Modal } from './modal/Modal'
 export { Table } from './table/Table'
 export { TableCaption } from './table-caption/TableCaption'

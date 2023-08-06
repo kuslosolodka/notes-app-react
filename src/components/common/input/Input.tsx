@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Label } from '../common'
+
 interface Properties {
     id: string
     label: string
@@ -35,11 +37,9 @@ const Input: React.ForwardRefRenderFunction<
 
     return (
         <>
+            <Label label={label} />
             {hasRows ? (
                 <>
-                    <label htmlFor={id} className="block font-bold">
-                        {label}:
-                    </label>
                     <textarea
                         ref={reference as React.Ref<HTMLTextAreaElement>}
                         id={id}
@@ -54,9 +54,6 @@ const Input: React.ForwardRefRenderFunction<
                 </>
             ) : (
                 <>
-                    <label htmlFor={id} className="block font-bold">
-                        {label}:
-                    </label>
                     <input
                         ref={reference as React.Ref<HTMLInputElement>}
                         type={type}
