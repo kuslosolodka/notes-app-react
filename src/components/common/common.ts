@@ -1,4 +1,5 @@
 export { Button } from './button/Button'
+export { ErrorMessage } from './error-message/ErrorMessage'
 export { Form } from './form/Form'
 export { Input } from './input/Input'
 export { Label } from './label/Label'

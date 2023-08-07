@@ -8,7 +8,7 @@ import {
     NoteUpdateValidationSchema,
 } from '../../../types/validation-schemas/validation-schemas.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
-import { Button, Input, Label } from '../common.ts'
+import { Button, ErrorMessage, Input, Label } from '../common.ts'
 
 interface Properties {
     initialValues?: NoteData | null
@@ -70,9 +70,9 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             required
                         />
                         {errors.name !== undefined && (
-                            <span className="text-red-500">
-                                {errors.name.message}
-                            </span>
+                            <ErrorMessage
+                                message={errors.name.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
@@ -96,9 +96,9 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             <option value="Task">Task</option>
                         </select>
                         {errors.category !== undefined && (
-                            <span className="text-red-500">
-                                {errors.category.message}
-                            </span>
+                            <ErrorMessage
+                                message={errors.category.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
@@ -117,9 +117,9 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             required
                         />
                         {errors.date !== undefined && (
-                            <span className="text-red-500">
-                                {errors.date.message}
-                            </span>
+                            <ErrorMessage
+                                message={errors.date.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
@@ -138,9 +138,9 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             required
                         />
                         {errors.content !== undefined && (
-                            <span className="text-red-500">
-                                {errors.content.message}
-                            </span>
+                            <ErrorMessage
+                                message={errors.content.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
