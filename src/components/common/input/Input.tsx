@@ -1,7 +1,6 @@
 import React from 'react'
-import { styled } from 'styled-components'
 
-import { Label } from '../label/Label.tsx'
+import { Label } from '../common'
 
 interface Properties {
     id: string
@@ -17,24 +16,32 @@ interface Properties {
     value?: string
 }
 
-const Input: React.FC<Properties> = ({
-    label,
-    type = 'text',
-    id,
-    name,
-    value,
-    onChange,
-    required,
-    rows,
-    placeholder,
-}) => {
+const Input: React.ForwardRefRenderFunction<
+    HTMLInputElement | HTMLTextAreaElement,
+    Properties
+> = (
+    {
+        label,
+        type = 'text',
+        id,
+        name,
+        value,
+        onChange,
+        required,
+        rows,
+        placeholder,
+    },
+    reference
+) => {
     const hasRows = rows !== undefined
+
     return (
         <>
+            <Label label={label} />
             {hasRows ? (
                 <>
-                    <Label htmlFor={id}>{label}:</Label>
-                    <TextAreaWrapper
+                    <textarea
+                        ref={reference as React.Ref<HTMLTextAreaElement>}
                         id={id}
                         placeholder={placeholder}
                         rows={rows}
@@ -42,18 +49,20 @@ const Input: React.FC<Properties> = ({
                         onChange={onChange}
                         value={value}
                         required={required}
-                    ></TextAreaWrapper>
+                        className="w-full p-2 mb-2.5 border border-gray-300 rounded-md"
+                    ></textarea>
                 </>
             ) : (
                 <>
-                    <Label htmlFor={id}>{label}:</Label>
-                    <InputWrapper
+                    <input
+                        ref={reference as React.Ref<HTMLInputElement>}
                         type={type}
                         id={id}
                         name={name}
                         value={value}
                         onChange={onChange}
                         required={required}
+                        className="w-full p-2 mb-2.5 border border-gray-300 rounded-md"
                     />
                 </>
             )}
@@ -61,20 +70,6 @@ const Input: React.FC<Properties> = ({
     )
 }
 
-const TextAreaWrapper = styled.textarea`
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`
+const ForwardedInput = React.forwardRef(Input)
 
-const InputWrapper = styled.input`
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`
-
-export { Input }
+export { ForwardedInput as Input }

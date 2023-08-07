@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { ButtonWrapper } from '../button/components/button-wrapper/ButtonWrapper.tsx'
-
 type ButtonVariant = 'edit' | 'delete' | 'add' | 'archive' | 'submit' | 'cancel'
 
 interface Properties {
@@ -12,6 +10,15 @@ interface Properties {
     variant: ButtonVariant
 }
 
+const variantClasses: Record<ButtonVariant, string> = {
+    edit: "after:content-['✏️'] bg-gray-100",
+    delete: "after:content-['🗑️'] bg-gray-100",
+    add: 'bg-transparent text-xl',
+    archive: "after:content-['📁'] bg-gray-100",
+    submit: 'bg-green-600 my-3.5 w-2/5',
+    cancel: "after:content-['❌'] text-xl",
+}
+
 const Button: React.FC<Properties> = ({
     onClick,
     text,
@@ -19,15 +26,14 @@ const Button: React.FC<Properties> = ({
     className,
     variant,
 }: Properties) => {
+    const buttonClassName = `px-4 py-1.5 cursor-pointer border border-transparent rounded-md ${
+        variantClasses[variant]
+    } ${className || ''}`
+
     return (
-        <ButtonWrapper
-            onClick={onClick}
-            type={type}
-            className={className}
-            variant={variant}
-        >
+        <button onClick={onClick} type={type} className={buttonClassName}>
             {text}
-        </ButtonWrapper>
+        </button>
     )
 }
 

@@ -1,39 +1,21 @@
-import React, { useCallback, useState } from 'react'
-import { styled } from 'styled-components'
+import React, { useCallback } from 'react'
 
+import { useModal } from '../../../hooks/use-modal/use-modal.hook.ts'
 import { useNoteStore } from '../../../store/store.ts'
 import type { NoteData, SummaryData } from '../../../types/types.ts'
 import { NoteList } from '../../notes-list/NotesList.tsx'
 import { SummaryList } from '../../summary-list/SummaryList.tsx'
-import { Button } from '../button/Button.tsx'
-import { Form } from '../form/Form.tsx'
-import { Modal } from '../modal/Modal.tsx'
-import { TableRow } from '../table-row/TableRow.tsx'
+import { Button, Form, Modal, TableCaption, TableHeader } from '../common.ts'
 
 interface Properties {
-    caption: string
     data: NoteData[] | SummaryData
     isAdding?: boolean
     isSummary?: boolean
 }
 
-const Table: React.FC<Properties> = ({
-    caption,
-    data,
-    isSummary,
-    isAdding,
-}) => {
+const Table: React.FC<Properties> = ({ data, isSummary, isAdding }) => {
     const isNotesData = Array.isArray(data)
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
-
-    const openModal = useCallback(() => {
-        setIsModalOpen(true)
-    }, [])
-
-    const closeModal = useCallback(() => {
-        setIsModalOpen(false)
-    }, [])
+    const { isModalOpen, openModal, closeModal } = useModal()
 
     const addNote = useNoteStore((state) => state.addNote)
 
@@ -46,41 +28,44 @@ const Table: React.FC<Properties> = ({
     )
 
     return (
-        <TableWrapper>
-            {isAdding ?? false ? (
-                <TableCaption>
-                    {caption}
+        <table className="border border-solid border-gray-300 border-collapse m-0 p-0 w-full table-fixed">
+            <TableCaption
+                title={
+                    isSummary
+                        ? 'Summary'
+                        : isAdding
+                        ? 'Active notes'
+                        : 'Archived notes'
+                }
+            >
+                {isAdding && !isSummary && (
                     <Button
                         type="button"
                         variant="add"
                         onClick={openModal}
                         text="+"
                     />
-                </TableCaption>
-            ) : (
-                <TableCaption>{caption}</TableCaption>
-            )}
+                )}
+            </TableCaption>
             <thead>
-                <TableRow>
-                    {isNotesData && (
-                        <>
-                            <TableHeader>Name</TableHeader>
-                            <TableHeader>Category</TableHeader>
-                            <TableHeader>Date</TableHeader>
-                            <TableHeader>Content</TableHeader>
-                            <TableHeader>Created At</TableHeader>
-                            <TableHeader>Updated At</TableHeader>
-                            <TableHeader>Actions</TableHeader>
-                        </>
-                    )}
-                    {(isSummary ?? false) && (
-                        <>
-                            <TableHeader>Category</TableHeader>
-                            <TableHeader>Active</TableHeader>
-                            <TableHeader>Archived</TableHeader>
-                        </>
-                    )}
-                </TableRow>
+                {isNotesData && (
+                    <>
+                        <TableHeader>Name</TableHeader>
+                        <TableHeader>Category</TableHeader>
+                        <TableHeader>Date</TableHeader>
+                        <TableHeader>Content</TableHeader>
+                        <TableHeader>Created At</TableHeader>
+                        <TableHeader>Updated At</TableHeader>
+                        <TableHeader>Actions</TableHeader>
+                    </>
+                )}
+                {(isSummary ?? false) && (
+                    <>
+                        <TableHeader>Category</TableHeader>
+                        <TableHeader>Active</TableHeader>
+                        <TableHeader>Archived</TableHeader>
+                    </>
+                )}
             </thead>
             <tbody>
                 {isNotesData && <NoteList data={data} />}
@@ -91,49 +76,8 @@ const Table: React.FC<Properties> = ({
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 <Form onSubmit={handleSubmit} />
             </Modal>
-        </TableWrapper>
+        </table>
     )
 }
-
-const TableWrapper = styled.table`
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-
-    @media (width <= 600px) {
-        border: 0;
-    }
-`
-
-const TableCaption = styled.caption`
-    font-size: 1.5em;
-    margin: 0.5em 0 0.75em;
-
-    @media (width <= 600px) {
-        font-size: 1.3em;
-    }
-`
-
-const TableHeader = styled.th`
-    font-size: 0.85em;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.625em;
-    text-align: center;
-
-    @media (width <= 600px) {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-`
 
 export { Table }

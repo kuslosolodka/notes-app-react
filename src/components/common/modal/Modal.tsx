@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { styled } from 'styled-components'
 
-import { Button } from '../button/Button.tsx'
+import { Button } from '../common'
 
 interface Properties {
     children: React.ReactNode
@@ -44,43 +43,19 @@ const Modal: React.FC<Properties> = ({
     }
 
     return createPortal(
-        <DialogWrapper ref={reference}>
-            <ModalInner>
-                <ModalInnerHeader>
+        <dialog
+            ref={reference}
+            className="w-96 p-4 bg-gray-100 rounded-lg shadow-md backdrop:bg-black/50 webkit-scrollbar:w-0"
+        >
+            <div className="flex flex-col">
+                <div className="flex justify-end">
                     <Button type="button" variant="cancel" onClick={onClose} />
-                </ModalInnerHeader>
+                </div>
                 {children}
-            </ModalInner>
-        </DialogWrapper>,
+            </div>
+        </dialog>,
         document.body
     )
 }
-
-const DialogWrapper = styled.dialog`
-    width: 400px;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0 0 0 / 20%);
-
-    &::backdrop {
-        background-color: rgba(0 0 0 / 50%);
-    }
-
-    &::-webkit-scrollbar {
-        width: 0;
-    }
-`
-
-const ModalInner = styled.div`
-    display: flex;
-    flex-direction: column;
-    border: none;
-`
-
-const ModalInnerHeader = styled.div`
-    display: flex;
-    justify-content: right;
-`
 
 export { Modal }

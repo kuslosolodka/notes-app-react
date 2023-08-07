@@ -1,7 +1,6 @@
 import React from 'react'
-import { styled } from 'styled-components'
 
-import { Table } from '../components/common/table/Table.tsx'
+import { Table } from '../components/common/common.ts'
 import { useNoteStore } from '../store/store.ts'
 import { calculateSummaryData } from './helpers/calculate-summary-date/calculate-summary-date.helper.ts'
 
@@ -16,18 +15,13 @@ const Notes: React.FC = () => {
 
     return (
         <>
-            <Wrapper>
-                <Table caption="Active Notes" data={activeNotes} isAdding />
-                <Table caption="Archived Notes" data={archivedNotes} />
-                <Table caption="Summary" data={summaryData} isSummary />
-            </Wrapper>
+            <div className="grid gap-2.5">
+                <Table data={activeNotes} isAdding />
+                <Table data={archivedNotes} />
+                <Table data={summaryData} isSummary />
+            </div>
         </>
     )
 }
-
-const Wrapper = styled.div`
-    display: grid;
-    gap: 15px;
-`
 
 export { Notes }
