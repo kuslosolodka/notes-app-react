@@ -10,7 +10,6 @@ module.exports = {
             version: 'detect',
         },
     },
-
     extends: [
         'plugin:react/recommended',
         'eslint:recommended',
@@ -24,6 +23,7 @@ module.exports = {
         'plugin:jsx-a11y/strict',
         'plugin:react-hooks/recommended',
         'prettier',
+        'plugin:storybook/recommended',
     ],
     ignorePatterns: [
         'dist',
