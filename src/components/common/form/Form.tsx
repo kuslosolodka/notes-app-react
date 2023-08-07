@@ -1,14 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { styled } from 'styled-components'
 
-import type { NoteData } from '../../../types/NoteData.ts'
-import { NoteAddValidationSchema } from '../../../types/validation-schemas/note-add.validation-schema.ts'
+import type { NoteData } from '../../../types/types.ts'
+import {
+    NoteAddValidationSchema,
+    NoteUpdateValidationSchema,
+} from '../../../types/validation-schemas/validation-schemas.ts'
 import { formatDate } from '../../helpers/format-date/format-date.helper.ts'
-import { Button } from '../button/Button.tsx'
-import { Input } from '../input/Input.tsx'
-import { Label } from '../label/Label.tsx'
+import { Button, ErrorMessage, Input, Label } from '../common.ts'
 
 interface Properties {
     initialValues?: NoteData | null
@@ -16,6 +16,12 @@ interface Properties {
 }
 
 const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
+    const isUpdating = initialValues !== null
+
+    const validationSchema = isUpdating
+        ? NoteUpdateValidationSchema
+        : NoteAddValidationSchema
+
     const {
         handleSubmit,
         control,
@@ -31,14 +37,14 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
             name: '',
             updatedAt: formatDate(new Date().toISOString()),
         },
-        resolver: zodResolver(NoteAddValidationSchema),
+        resolver: zodResolver(validationSchema),
     })
 
     useEffect(() => {
-        if (initialValues !== null) {
+        if (isUpdating) {
             control._reset(initialValues)
         }
-    }, [control, initialValues])
+    }, [control, initialValues, isUpdating])
 
     const handleFormSubmit = useCallback(
         (event_: React.BaseSyntheticEvent): void => {
@@ -50,7 +56,7 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
     )
 
     return (
-        <FormWrapper onSubmit={handleFormSubmit} noValidate>
+        <form onSubmit={handleFormSubmit} className="grid gap-2.5" noValidate>
             <Controller
                 name="name"
                 control={control}
@@ -64,29 +70,35 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             required
                         />
                         {errors.name !== undefined && (
-                            <ErrorMessage>{errors.name.message}</ErrorMessage>
+                            <ErrorMessage
+                                message={errors.name.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
             />
 
-            <Label htmlFor="category">Category:</Label>
+            <Label label="Category"></Label>
             <Controller
                 name="category"
                 control={control}
                 render={({ field }) => (
                     <>
-                        <Select id="category" {...field}>
+                        <select
+                            id="category"
+                            {...field}
+                            className="w-full p-2 mb-2.5 border border-gray-300 rounded-md"
+                        >
                             <option value="Random Thought">
                                 Random Thought
                             </option>
                             <option value="Idea">Idea</option>
                             <option value="Task">Task</option>
-                        </Select>
+                        </select>
                         {errors.category !== undefined && (
-                            <ErrorMessage>
-                                {errors.category.message}
-                            </ErrorMessage>
+                            <ErrorMessage
+                                message={errors.category.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
@@ -105,7 +117,9 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             required
                         />
                         {errors.date !== undefined && (
-                            <ErrorMessage>{errors.date.message}</ErrorMessage>
+                            <ErrorMessage
+                                message={errors.date.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
@@ -124,41 +138,19 @@ const Form: React.FC<Properties> = ({ initialValues, onSubmit }) => {
                             required
                         />
                         {errors.content !== undefined && (
-                            <ErrorMessage>
-                                {errors.content.message}
-                            </ErrorMessage>
+                            <ErrorMessage
+                                message={errors.content.message}
+                            ></ErrorMessage>
                         )}
                     </>
                 )}
             />
 
-            <Wrapper>
+            <div className="flex justify-center">
                 <Button type="submit" variant="submit" text="Submit" />
-            </Wrapper>
-        </FormWrapper>
+            </div>
+        </form>
     )
 }
-
-const FormWrapper = styled.form`
-    display: grid;
-    gap: 10px;
-`
-
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-`
-
-const Select = styled.select`
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-`
-
-const ErrorMessage = styled.span`
-    color: rgb(255 0 0);
-`
 
 export { Form }

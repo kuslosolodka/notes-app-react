@@ -1,9 +1,16 @@
-import { styled } from 'styled-components'
+import React from 'react'
 
-const TableRow = styled.tr`
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 0.35em;
-`
+interface Properties {
+    keyRow?: string | number
+    children: React.ReactNode
+}
+
+const TableRow: React.FC<Properties> = ({ keyRow, children }) => {
+    return (
+        <tr key={keyRow} className="bg-white border border-gray-300 p-1.5">
+            {children}
+        </tr>
+    )
+}
 
 export { TableRow }

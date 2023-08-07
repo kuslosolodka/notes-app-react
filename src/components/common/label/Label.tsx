@@ -1,8 +1,11 @@
-import { styled } from 'styled-components'
+import React from 'react'
 
-const Label = styled.label`
-    display: block;
-    font-weight: bold;
-`
+interface Properties {
+    label: string
+}
+
+const Label: React.FC<Properties> = ({ label }) => {
+    return <label className="block font-bold">{label}:</label>
+}
 
 export { Label }

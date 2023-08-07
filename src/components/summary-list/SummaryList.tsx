@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { TableCell } from '../common/table-cell/TableCell.tsx'
-import { TableRow } from '../common/table-row/TableRow.tsx'
+import { TableCell, TableRow } from '../common/common'
 
 interface SummaryData {
     categories: Array<{
@@ -20,9 +19,9 @@ const SummaryList: React.FC<Properties> = ({ data }) => {
         <>
             {data.categories.map((categoryData) => (
                 <TableRow key={categoryData.category}>
-                    <TableCell>{categoryData.category}</TableCell>
-                    <TableCell>{categoryData.active}</TableCell>
-                    <TableCell>{categoryData.archived}</TableCell>
+                    <TableCell data={categoryData.category} />
+                    <TableCell data={categoryData.active} />
+                    <TableCell data={categoryData.archived} />
                 </TableRow>
             ))}
         </>
